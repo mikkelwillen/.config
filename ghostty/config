@@ -1,0 +1,16 @@
+font-family = MesloLGS NF Regular 
+font-size = 18 
+theme = NvimDark
+cursor-style = block
+
+mouse-scroll-multiplier = 2
+window-decoration = false
+window-new-tab-position = end
+
+# keybindings
+keybind = ctrl+r=reload_config
+
+keybind = ctrl+t=new_tab
+keybind = ctrl+w=close_surface
+
+copy-on-select = clipboard
