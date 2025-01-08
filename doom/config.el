@@ -12,6 +12,9 @@
     (unless (or (minibufferp) (eq major-mode 'pdf-view-mode))
 	(display-line-numbers-mode)))
 
+;; Always show line numbers and make them relative
+(setq display-line-numbers-type 'relative)
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")

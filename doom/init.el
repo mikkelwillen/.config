@@ -95,7 +95,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
        :os
 
-       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
+       ;; (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
        tty               ; improve the terminal Emacs experience
 
        :lang
@@ -188,15 +188,9 @@
 ;; electric indent mode
 (electric-indent-mode t)
 
-;; Always show line numbers and make them relative
-(setq display-line-numbers-type 'relative)
-
 ;; Make emacs open as fullscreen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Loads fasto-mode from /./
 (add-load-path! ".")
 (require 'fasto-mode)
-
-;; Enable line numbers
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
