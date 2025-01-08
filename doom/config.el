@@ -44,7 +44,7 @@
 (global-subword-mode 1)
 
 ;; Set the font size
-(setq doom-font (font-spec :size 24))
+(setq doom-font (font-spec :family "FiraMono Nerd Font Mono" :size 24))
 
 ;; Set indentation to 4 spaces
 (setq-default indent-tabs-mode t)

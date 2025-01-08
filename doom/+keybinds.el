@@ -113,6 +113,28 @@
         (backward-word)
         (kill-region (point) start))))))
 
+;; Customized forward-kill-word
+;; If the character after the cursor is whitespace, it removes all whitespace
+;; If the character after the cursor is a newline, it deletes the newline
+;; Otherwise, it removes a word
+(defun custom-forward-kill-word ()
+  (interactive)
+  (let ((char (char-after))) ; Get the character after the cursor
+    (cond
+     ;; Check for whitespace
+     ((and char (member char '(?\s ?\t)))
+      (while (and (char-after)
+		  (member (char-after) '(?\s ?\t)))
+	(delete-char 1)))
+     ;; Check for newline
+     ((and char (eq char ?\n))
+      (delete-char 1))
+     ;; Default case: kill the next word
+     (t
+      (let ((start (point)))
+	(forward-word)
+	(kill-region start (point)))))))
+
 ;; KEYBINDINGS
 ;; Keybindings open shell at bottom and files at right and left
 (map! :leader
@@ -129,7 +151,14 @@
   (global-set-key (kbd (format "M-%d" i))
                   (lambda () (interactive) (switch-workspace-by-index i))))
 
-;; Set C-backspace to my custom backward-kill-word
+;; Set C-backspace and M-backspace to my custom backward-kill-word
 (map! :i "C-<backspace>" #'custom-backward-kill-word) ; In insert mode
 (map! :n "C-<backspace>" #'custom-backward-kill-word) ; In normal mode
+(map! :i "M-<backspace>" #'custom-backward-kill-word) ; In insert mode
+(map! :n "M-<backspace>" #'custom-backward-kill-word) ; In normal mode
 
+;; Set C-delete and M-delete to my custom forward-kill-word
+(map! :i "C-<delete>" #'custom-forward-kill-word) ; In insert mode
+(map! :n "C-<delete>" #'custom-forward-kill-word) ; In normal mode
+(map! :i "M-<delete>" #'custom-forward-kill-word) ; In insert mode
+(map! :n "M-<delete>" #'custom-forward-kill-word) ; In normal mode
