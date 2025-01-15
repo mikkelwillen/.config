@@ -5,6 +5,9 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-dark+)
 
+;; Set the font size
+(setq doom-font (font-spec :family "FiraMono Nerd Font Mono" :size 24))
+
 ;; Redefine display-line-numbers to not show line numbers in pdf-view-mode
 (require 'display-line-numbers)
     (defun display-line-numbers--turn-on ()
@@ -19,7 +22,8 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-(setq which-key-idle-delay 0.5) ;; I need the help, I really do
+;; Set the delay for key popups
+(setq which-key-idle-delay 0.2)
 
 (setq
       ; Raise undo-limit to 80Mb
@@ -43,11 +47,8 @@
       ; It's nice to maintain a little margin
       scroll-margin 2)
 
-;; Iterate through CamelCase words
+;; Iterate through camelCase words
 (global-subword-mode 1)
-
-;; Set the font size
-(setq doom-font (font-spec :family "FiraMono Nerd Font Mono" :size 24))
 
 ;; Set indentation to 4 spaces
 (setq-default indent-tabs-mode t)
