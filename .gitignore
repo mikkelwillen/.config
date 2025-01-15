@@ -1,0 +1,11 @@
+# Ignore everthing
+*
+# Whitelist subdirectories i want to sync
+!doom
+!fish
+!ghostty
+!sway
+!waybar
+!warp-terminal
+!foot
+!.gitignore
