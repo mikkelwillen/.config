@@ -140,8 +140,7 @@
 ;; Opens the file with sudo priviledges
 (defun nix-config ()
   (interactive)
-  (find-file "/etc/nixos/configuration.nix")
-  (sudo-edit))
+  (doom/sudo-find-file "/etc/nixos/configuration.nix"))
 
 ;; KEYBINDINGS
 ;; Keybindings open shell at bottom and files at right and left
