@@ -135,10 +135,19 @@
 	(forward-word)
 	(kill-region start (point)))))))
 
+;; Customized function for opening nix config
+;; Path: /etc/nixos/configuration.nix
+;; Opens the file with sudo priviledges
+(defun nix-config ()
+  (interactive)
+  (find-file "/etc/nixos/configuration.nix")
+  (sudo-edit))
+
 ;; KEYBINDINGS
 ;; Keybindings open shell at bottom and files at right and left
 (map! :leader
       (:prefix "f"
+       :desc  "open nix config" "n" #'nix-config
        :desc  "open file top" "<up>" #'open-file-up
        :desc  "open shell bottom" "<down>" #'open-shell-bottom
        :desc  "open file right" "<right>" #'open-file-right
