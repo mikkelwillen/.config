@@ -8,27 +8,28 @@ input * xkb_layout "dk"
 input * natural_scroll enabled 
 
 ### Scale
-font pango:"MesloLGS NF" 14
+font pango:"FiraMono Nerd Font Mono" 14
 
 ### Appearance
 # Declare colors:
 set $background #323232
-set $color_urgent #fb4934
+set $color_urgent #7c0a02
 set $text_color #ffffff
 set $title_bg_unfocused #666666
 set $title_outline_active #264f78
 set $title_outline_unfocused #332b2b
 
-# Set Colors:           Border                   Background            Text          Indicator             Child Border
+# Set Colors:           Border                   Background            Text          Indicator                Child Border
 client.background       $background
-client.focused          $title_outline_active    $title_outline_active $text_color   $title_outline_active $title_outline_active
-client.focused_inactive $title_outline_unfocused $background           $text_color   $text_color           $title_outline_unfocused
-client.unfocused        $title_outline_unfocused $title_bg_unfocused   $text_color   $title_outline_active
-client.urgent           $color_urgent            $color_urgent         $color_urgent $color_urgent         $color_urgent
+client.focused          $title_outline_active    $title_outline_active $text_color   $title_outline_active    $title_outline_active
+client.focused_inactive $title_outline_unfocused $background           $text_color   $title_outline_unfocused $title_outline_unfocused
+client.unfocused        $title_outline_unfocused $background           $text_color   $title_outline_unfocused $title_outline_unfocused
+client.urgent           $color_urgent            $color_urgent         $text_color   $color_urgent            $color_urgent
 
 # Add gaps in between all application windows
 gaps inner 2
-gaps outer 0
+gaps outer -2
+gaps top 2
 
 ### Variables
 

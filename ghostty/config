@@ -13,4 +13,10 @@ keybind = ctrl+r=reload_config
 keybind = ctrl+t=new_tab
 keybind = ctrl+w=close_surface
 
+keybind = alt+up=scroll_page_lines:-1
+keybind = alt+down=scroll_page_lines:1
+
+keybind = page_up=scroll_page_up
+keybind = page_down=scroll_page_down
+
 copy-on-select = clipboard
