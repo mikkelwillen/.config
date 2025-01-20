@@ -27,16 +27,16 @@ client.unfocused        $title_outline_unfocused $background           $text_col
 client.urgent           $color_urgent            $color_urgent         $text_color   $color_urgent            $color_urgent
 
 # Add gaps in between all application windows
-gaps inner 2
-gaps outer -2
-gaps top 2
+gaps inner 4
+gaps outer -4
+gaps top 0
 
 ### Variables
 
 # Modifier set to super key
 set $mod Mod4
 
-# Your preferred terminal emulator
+# Terminal emulator
 set $term ghostty
 
 # Your preferred application launcher
