@@ -22,6 +22,10 @@
 (package! copilot-chat
    :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
 
+;; Nix-mode
+(package! nix-mode
+    :recipe (:host github :repo "NixOS/nix-mode" :files ("*.el")))
+
 ;; install eyebrowse
 (package! eyebrowse)
 
@@ -34,3 +38,4 @@
 
 ;; install fish-mode
 (package! fish-mode)
+
