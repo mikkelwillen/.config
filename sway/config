@@ -1,6 +1,9 @@
 ### Autotiling
 exec_always autotiling
 
+### Start emacs daemon
+exec /usr/bin/emacs --daemon
+
 ### Input
 input * xkb_layout "dk"
 
