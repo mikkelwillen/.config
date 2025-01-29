@@ -47,8 +47,8 @@
       ; It's nice to maintain a little margin
       scroll-margin 2)
 
-;; Iterate through camelCase words
-(global-subword-mode 1)
+;; Iterate through camelCase words (if set to 1)
+(global-subword-mode 0)
 
 ;; Set indentation to 4 spaces
 (setq-default indent-tabs-mode t)
@@ -103,6 +103,9 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
+;; Set emacsclient to not open new workspace, when opening
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
 ;; Load additional configuration files
 (load! "+keybinds")

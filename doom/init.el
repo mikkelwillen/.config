@@ -194,3 +194,4 @@
 ;; Loads fasto-mode from /./
 (add-load-path! ".")
 (require 'fasto-mode)
+
