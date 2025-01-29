@@ -1,11 +1,27 @@
-# Ignore everthing
+# Ignore everything by default
 *
-# Whitelist subdirectories i want to sync
-!doom
-!fish
-!ghostty
-!sway
-!waybar
-!foot
+
+# Whitelist .gitignore itself so it is tracked
 !.gitignore
 
+# Whitelist the directories i want tracked
+!doom/
+!doom/**
+
+!fish/
+!fish/**
+
+!ghostty/
+!ghostty/**
+
+!sway/
+!sway/**
+
+!waybar/
+!waybar/**
+
+!foot/
+!foot/**
+
+# ignore fish/fish_variables
+fish/fish_variables
