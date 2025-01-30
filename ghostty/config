@@ -22,7 +22,7 @@ keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
 
 # splits
-keybind = ctrl+v=new_split:right
+keybind = ctrl+shift+v=new_split:right
 
 keybind = ctrl+up=goto_split:top
 keybind = ctrl+down=goto_split:bottom
