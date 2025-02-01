@@ -23,5 +23,8 @@
 !foot/
 !foot/**
 
+!rofi/
+!rofi/**
+
 # ignore fish/fish_variables
 fish/fish_variables

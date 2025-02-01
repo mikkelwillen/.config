@@ -48,9 +48,9 @@
             "critical": 15
         },
         // Connected to AC
-        "format": "  {icon}  {capacity}%", // Icon: bolt
+        "format": " {icon}   {capacity}%", // Icon: bolt
         // Not connected to AC
-        "format-discharging": "{icon}  {capacity}%",
+        "format-discharging": "{icon}    {capacity}%",
         "format-icons": [
             "", // Icon: battery-full
             "", // Icon: battery-three-quarters
@@ -75,7 +75,7 @@
 
     "cpu": {
         "interval": 5,
-        "format": "󰍛  {usage}% ({load})", // Icon: microchip
+        "format": "󰍛 {usage}% ({load})", // Icon: microchip
         "states": {
           "warning": 70,
           "critical": 90
@@ -103,7 +103,7 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
+        "format-wifi": "   {essid} ({signalStrength}%)", // Icon: wifi
         "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}"
@@ -122,7 +122,7 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon} {name}",
+        "format": "{icon}  {name}",
         "format-icons": {
             "1:www": "龜", // Icon: firefox-browser
             "2:mail": "", // Icon: mail
@@ -138,7 +138,7 @@
     "pulseaudio": {
         "scroll-step": 1,
         "format": "{icon}  {volume}%",
-        "format-bluetooth": "{icon}  {volume}%",
+        "format-bluetooth": "{icon}   {volume}%",
         "format-muted": "",
         "format-icons": {
             "headphones": "",
@@ -153,7 +153,7 @@
     },
 
     "backlight": {
-	"format": "{icon}  {percent}%",
+	"format": "{icon}   {percent}%",
 	"format-icons": ["", ""]
     }, 
 

@@ -34,3 +34,4 @@ keybind = ctrl+left=goto_split:left
 
 # automatically copy to clipboard, when marking text with mouse
 copy-on-select = clipboard
+keybind = ctrl+v=paste_from_clipboard
