@@ -38,6 +38,8 @@ inputbar {
 icon-search {
     expand:     false;
     filename:   "search";
+	placeholder: ">";
+	placeholder-color: @fg2;
     size: 28px;
 }
 

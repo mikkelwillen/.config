@@ -66,9 +66,9 @@ output HDMI-A-1 resolution 2240x1440 position 2240,0
 # Locks screen after 300 second. Turn off display after another 300 sec. 
 # Locks screen before computer goes to sleep.
 exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
-    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -c 000000'
+   timeout 300 'swaylock -f -c 000000' \
+   timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+   before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
 #
@@ -101,10 +101,10 @@ exec swayidle -w \
     bindsym $mod+l exec 'swaylock -f -c 000000'
 
     # Increase brightness
-    bindsym XF86MonBrightnessUp exec light -A 10 
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 
     # Decrease brightness
-    bindsym XF86MonBrightnessDown exec light -U 10
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
     # Volume up
     bindsym XF86AudioRaiseVolume exec pamixer -i 5
