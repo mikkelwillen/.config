@@ -5,9 +5,9 @@ function cd
         # Create a string with the correct number of "../"
         set -l target_path (string repeat -n $depth "../")
         # Use eval to expand the path and call cd with the repeated "../"
-        eval builtin cd $target_path
+        eval cd_wrapper $target_path
     else
         # If it's a regular 'cd' command, pass the arguments normally
-        builtin cd $argv
+        cd_wrapper $argv
     end
 end
