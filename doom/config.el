@@ -45,7 +45,7 @@
       scroll-preserve-screen-position 'always
 
       ; It's nice to maintain a little margin
-      scroll-margin 2)
+      scroll-margin 4)
 
 ;; Iterate through camelCase words (if set to 1)
 (global-subword-mode 0)
@@ -61,8 +61,8 @@
     :bind (:map copilot-completion-map
 	("<tab>" . 'copilot-accept-completion)
 	("TAB" . 'copilot-accept-completion)
-	("C-TAB" . 'copilot-accept-completion-by-word)
 	("C-<tab>" . 'copilot-accept-completion-by-word)
+	("C-TAB" . 'copilot-accept-completion-by-word)
 	("C-n" . 'copilot-next-completion)
 	("C-p" . 'copilot-previous-completion))
 
@@ -106,6 +106,19 @@
 ;; Set emacsclient to not open new workspace, when opening
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
+
+;; Automatically start lsp-mode in sml-mode
+(after! sml-mode
+  (add-hook 'sml-mode-hook #'lsp))
+
+;; Register the Millet language server with lsp-mode
+(after! lsp-mode
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("millet-ls"))  ;; Replace "millet" with full path if needed
+    :major-modes '(sml-mode)
+    :server-id 'millet)))
+
 
 ;; Load additional configuration files
 (load! "+keybinds")

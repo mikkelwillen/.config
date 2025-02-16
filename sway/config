@@ -11,7 +11,7 @@ input * xkb_layout "dk"
 input * natural_scroll enabled 
 
 ### Scale
-font pango:"MesloLGS Nerd Font Mono" 14
+font pango:FiraCode Nerd Font 15
 
 ### Appearance
 # Declare colors:
@@ -60,14 +60,14 @@ output * bg /run/current-system/sw/share/backgrounds/nixos/nix-wallpaper-simple-
 output eDP1 resolution 2240x1440 position 0,0
 
 # HDMI output
-output HDMI-A-1 resolution 2240x1440 position 2240,0
+output HDMI-A-1 resolution 2560x1440 position -2560,0
 
 ### Idle configuration
 # Locks screen after 300 second. Turn off display after another 300 sec. 
 # Locks screen before computer goes to sleep.
 exec swayidle -w \
-   timeout 300 'swaylock -f -c 000000' \
-   timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+   timeout 1500 'swaylock -f -c 000000' \
+   timeout 1800 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
    before-sleep 'swaylock -f -c 000000'
 
 # make chrome trigger nonidle when fullscreened

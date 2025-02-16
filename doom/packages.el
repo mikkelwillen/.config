@@ -13,6 +13,9 @@
 ;; Execution path
 (package! exec-path-from-shell)
 (package-initialize)
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; copilot package
 (package! copilot
@@ -39,3 +42,20 @@
 ;; install fish-mode
 (package! fish-mode)
 
+;; install python lsp
+(package! lsp-pyright)
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
+;; install c lsp
+(package! ccls)
+
+;; fsautocomplete
+(package! fsharp-mode)
+
+;; sml-mode
+(package! sml-mode)
