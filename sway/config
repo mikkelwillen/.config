@@ -71,6 +71,7 @@ exec swayidle -w \
    before-sleep 'swaylock -f -c 000000'
 
 # make chrome trigger nonidle when fullscreened
+# x11 version
 for_window [class="Google-chrome"] inhibit_idle fullscreen
 # wayland vesion
 for_window [app_id="google-chrome"] inhibit_idle fullscreen
