@@ -45,7 +45,7 @@
       scroll-preserve-screen-position 'always
 
       ; It's nice to maintain a little margin
-      scroll-margin 5)
+      scroll-margin 2)
 
 ;; Iterate through camelCase words (if set to 1)
 (global-subword-mode 0)
