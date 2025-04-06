@@ -110,13 +110,16 @@
 ;; Automatically start lsp-mode in sml-mode
 (after! sml-mode
   (add-hook 'sml-mode-hook #'lsp))
+(after! sml-ts-mode
+  (add-hook 'sml-ts-mode-hook #'lsp))
 
 ;; Register the Millet language server with lsp-mode
 (after! lsp-mode
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection '("millet-ls"))  ;; Replace "millet" with full path if needed
-    :major-modes '(sml-mode)
+    :major-modes '(sml-mode
+		   sml-ts-mode)
     :server-id 'millet)))
 
 

@@ -49,7 +49,10 @@
   :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
   :hook (python-mode . (lambda ()
                           (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
+                          (lsp)))  ; or lsp-deferred
+  :hook (python-ts-mode . (lambda ()
+			  (require 'lsp-pyright)
+			  (lsp))))  ; or lsp-deferred(
 
 ;; install c lsp
 (package! ccls)
@@ -59,3 +62,29 @@
 
 ;; sml-mode
 (package! sml-mode)
+
+;; Tree sitter auto
+(package! treesit-auto)
+(load! "+treesit-sources.el")
+(use-package treesit-auto
+  :demand t
+  :custom
+  (treesit-auto-install t)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+(package! haskell-ts-mode)
+(use-package haskell-ts-mode
+  :ensure t
+  :custom
+  (haskell-ts-font-lock-level 4)
+  (haskell-ts-use-indent t)
+  (haskell-ts-ghci "ghci")
+  (haskell-ts-use-indent t))
+
+(package! sml-ts-mode)
+
+;; Elisp-ts-mode
+(package! emacs-lisp-ts-mode
+  :recipe (:host github :repo "nverno/emacs-lisp-ts-mode" :files ("*.el")))
