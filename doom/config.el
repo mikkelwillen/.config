@@ -92,36 +92,21 @@
 ;; a package to highlight TODO, FIXME, etc. in comments and strings
 (use-package hl-todo
   :hook ((org-mode . hl-todo-mode)
-         (prog-mode . hl-todo-mode))
+	 (prog-mode . hl-todo-mode))
   :config
   (setq hl-todo-highlight-punctuation ":"
-        hl-todo-keyword-faces
-        `(("TODO"       warning bold)
-          ("FIXME"      error bold)
-          ("HACK"       font-lock-constant-face bold)
-          ("REVIEW"     font-lock-keyword-face bold)
-          ("NOTE"       success bold)
-          ("DEPRECATED" font-lock-doc-face bold))))
+	hl-todo-keyword-faces
+	`(("TODO"       warning bold)
+	  ("FIXME"      error bold)
+	  ("HACK"       font-lock-constant-face bold)
+	  ("REVIEW"     font-lock-keyword-face bold)
+	  ("NOTE"       success bold)
+	  ("DEPRECATED" font-lock-doc-face bold))))
 
 ;; Set emacsclient to not open new workspace, when opening
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
-;; Automatically start lsp-mode in sml-mode
-(after! sml-mode
-  (add-hook 'sml-mode-hook #'lsp))
-(after! sml-ts-mode
-  (add-hook 'sml-ts-mode-hook #'lsp))
-
-;; Register the Millet language server with lsp-mode
-(after! lsp-mode
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("millet-ls"))  ;; Replace "millet" with full path if needed
-    :major-modes '(sml-mode
-		   sml-ts-mode)
-    :server-id 'millet)))
-
-
 ;; Load additional configuration files
 (load! "+keybinds")
+

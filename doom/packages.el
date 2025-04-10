@@ -42,49 +42,28 @@
 ;; install fish-mode
 (package! fish-mode)
 
-;; install python lsp
-(package! lsp-pyright)
-(use-package lsp-pyright
+;; fsautocomplete
+(package! fsharp-mode)
+
+;; install sml-ts-mode and load it
+(package! sml-ts-mode)
+(use-package sml-ts-mode
   :ensure t
-  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp)))  ; or lsp-deferred
-  :hook (python-ts-mode . (lambda ()
-			  (require 'lsp-pyright)
-			  (lsp))))  ; or lsp-deferred(
+  :mode "\\.sml\\'" "\\.mlb\\'" "\\.sig\\'")
 
 ;; install c lsp
 (package! ccls)
 
-;; fsautocomplete
-(package! fsharp-mode)
+;; install python lsp
+(package! lsp-pyright)
 
-;; sml-mode
-(package! sml-mode)
+;; install and configure tree-sitter
+(require 'treesit-langs)
+(treesit-langs-major-mode-setup)
 
-;; Tree sitter auto
-(package! treesit-auto)
-(load! "+treesit-sources.el")
-(use-package treesit-auto
-  :demand t
-  :custom
-  (treesit-auto-install t)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+;; Loads fasto-mode from /./
+(add-load-path! ".")
+(require 'fasto-mode)
 
-(package! haskell-ts-mode)
-(use-package haskell-ts-mode
-  :ensure t
-  :custom
-  (haskell-ts-font-lock-level 4)
-  (haskell-ts-use-indent t)
-  (haskell-ts-ghci "ghci")
-  (haskell-ts-use-indent t))
-
-(package! sml-ts-mode)
-
-;; Elisp-ts-mode
-(package! emacs-lisp-ts-mode
-  :recipe (:host github :repo "nverno/emacs-lisp-ts-mode" :files ("*.el")))
+;; load +lsp related config
+(load! "+lsp.el")
