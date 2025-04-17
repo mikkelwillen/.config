@@ -19,15 +19,15 @@
 
 ;; copilot package
 (package! copilot
-   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 
 ;; copilot-chat
 (package! copilot-chat
-   :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
+  :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
 
 ;; Nix-mode
 (package! nix-mode
-    :recipe (:host github :repo "NixOS/nix-mode" :files ("*.el")))
+  :recipe (:host github :repo "NixOS/nix-mode" :files ("*.el")))
 
 ;; install eyebrowse
 (package! eyebrowse)

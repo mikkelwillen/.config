@@ -5,10 +5,10 @@
   :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
-			 (lsp)))  ; or lsp-deferred
+			 (lsp)))
   :hook (python-ts-mode . (lambda ()
 			    (require 'lsp-pyright)
-			    (lsp))))  ; or lsp-deferred(
+			    (lsp))))
 
 ;; Register the Millet language server with lsp-mode
 (after! lsp-mode
