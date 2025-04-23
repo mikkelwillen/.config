@@ -15,7 +15,8 @@
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection '("millet-ls"))
-    :major-modes '(sml-ts-mode)
+    :major-modes '(sml-ts-mode
+		   sml-mode)
     :server-id 'millet)))
 
 ;; Automatically start lsp-mode in sml-mode

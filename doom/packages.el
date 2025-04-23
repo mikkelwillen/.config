@@ -57,6 +57,12 @@
 ;; install python lsp
 (package! lsp-pyright)
 
+;; install elsa lsp
+;; (package! elsa)
+
+;; install golden-ratio
+(package! golden-ratio)
+
 ;; install and configure tree-sitter
 (require 'treesit-langs)
 (treesit-langs-major-mode-setup)
@@ -64,6 +70,3 @@
 ;; Loads fasto-mode from /./
 (add-load-path! ".")
 (require 'fasto-mode)
-
-;; load +lsp related config
-(load! "+lsp.el")

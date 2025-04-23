@@ -50,6 +50,12 @@
 ;; Iterate through camelCase words (if set to 1)
 (global-subword-mode 0)
 
+;; Set golden-ratio to be enabled by default
+(golden-ratio-mode 1)
+
+;; enable word-wrap (almost) everywhere
+(+global-word-wrap-mode +1)
+
 ;; Set indentation to 4 spaces
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
@@ -57,21 +63,21 @@
 
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
-    :hook (prog-mode . copilot-mode)
-    :bind (:map copilot-completion-map
-	("<tab>" . 'copilot-accept-completion)
-	("TAB" . 'copilot-accept-completion)
-	("C-<tab>" . 'copilot-accept-completion-by-word)
-	("C-TAB" . 'copilot-accept-completion-by-word)
-	("C-n" . 'copilot-next-completion)
-	("C-p" . 'copilot-previous-completion))
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+	  ("<tab>" . 'copilot-accept-completion)
+	  ("TAB" . 'copilot-accept-completion)
+	  ("C-<tab>" . 'copilot-accept-completion-by-word)
+	  ("C-TAB" . 'copilot-accept-completion-by-word)
+	  ("C-n" . 'copilot-next-completion)
+	  ("C-p" . 'copilot-previous-completion))
 
-    :config
-    (add-to-list 'copilot-indentation-alist '(prog-mode 4))
-    (add-to-list 'copilot-indentation-alist '(org-mode 4))
-    (add-to-list 'copilot-indentation-alist '(text-mode 4))
-    (add-to-list 'copilot-indentation-alist '(closure-mode 4))
-    (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 4)))
+  :config
+  (add-to-list 'copilot-indentation-alist '(prog-mode 4))
+  (add-to-list 'copilot-indentation-alist '(org-mode 4))
+  (add-to-list 'copilot-indentation-alist '(text-mode 4))
+  (add-to-list 'copilot-indentation-alist '(closure-mode 4))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 4)))
 
 ;; initialize drag-stuff
 ;; a package to move lines up and down
@@ -79,6 +85,14 @@
   :init
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
+;; evil-indent after drag-stuf
+(add-hook 'drag-stuff-after-drag-hook
+	  (lambda ()
+	    (when (and (bound-and-true-p evil-mode))
+	      (save-mark-and-excursion
+		(evil-indent (region-beginning) (region-end)))
+	      (when (eq evil-state 'visual)
+		(evil-mark-and-excursion--restore)))))
 
 ;; Enable flycheck
 ;; a package to perform on-the-fly syntax checking
@@ -110,3 +124,5 @@
 ;; Load additional configuration files
 (load! "+keybinds")
 
+;; load +lsp related config
+(load! "+lsp.el")
