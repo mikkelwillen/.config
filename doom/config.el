@@ -119,9 +119,14 @@
 
 ;; Set emacsclient to not open new workspace, when opening
 (after! persp-mode
+  (add-hook 'after-make-frame-functions
+	    (lambda (frame)
+	      (with-selected-frame frame
+	  ;; Create and switch to a new workspace for this frame
+	  (persp-switch (generate-new-buffer-name "#1")))))
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
-;; Load additional configuration files
+  ;; Load additional configuration files
 (load! "+keybinds")
 
 ;; load +lsp related config

@@ -45,6 +45,10 @@
 ;; fsautocomplete
 (package! fsharp-mode)
 
+;; Fsharp treesitter mode
+(package! fsharp-ts-mode
+  :recipe (:host github :repo "KaranAhlawat/fsharp-ts-mode" :files ("*.el")))
+
 ;; install sml-ts-mode and load it
 (package! sml-ts-mode)
 (use-package sml-ts-mode
