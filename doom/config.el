@@ -25,6 +25,9 @@
 ;; Set the delay for key popups
 (setq which-key-idle-delay 0.2)
 
+;; Use bash as shell
+(setq shell-file-name (executable-find "bash"))
+
 (setq
       ; Raise undo-limit to 80Mb
       undo-limit 80000000
@@ -50,8 +53,11 @@
 ;; Iterate through camelCase words (if set to 1)
 (global-subword-mode 0)
 
-;; Set golden-ratio to be enabled by default
-(golden-ratio-mode 1)
+;; Set golden-ratio to be disabled by default, since we want to use
+;; custom functions.
+(golden-ratio-mode 0)
+;; load +golden-ratio config
+(load! "+golden-ratio")
 
 ;; enable word-wrap (almost) everywhere
 (+global-word-wrap-mode +1)
@@ -126,7 +132,12 @@
 	  (persp-switch (generate-new-buffer-name "#1")))))
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
-  ;; Load additional configuration files
+;; Set up ccls for C/C++ development
+(after! ccls
+  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  (set-lsp-priority! 'ccls 1))
+
+;; Load additional configuration files
 (load! "+keybinds")
 
 ;; load +lsp related config

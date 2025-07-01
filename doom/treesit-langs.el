@@ -209,22 +209,22 @@ from `tree-sitter-langs' package."
   "Call PROGRAM with ARGS, using BUFFER as stdout+stderr.
 If BUFFER is nil, `princ' is used to forward its stdout+stderr."
   (let* ((command `(,program . ,args))
-         (_ (message "[treesit-langs] Running %s in %s" command default-directory))
-         (base `(:name ,program :command ,command))
-         (output (if treesit-langs--out
-                     `(:buffer ,treesit-langs--out)
-                   `(:filter (lambda (proc string)
-                               (princ string)))))
-         (proc (apply #'make-process (append base output)))
-         (exit-code (progn
-                      (while (not (memq (process-status proc)
-                                        '(exit failed signal)))
-                        (sleep-for 0.1))
-                      (process-exit-status proc)))
-         ;; Flush buffered output. Not doing this caused
-         ;; `tree-sitter-langs-git-dir' to be set incorrectly, and
-         ;; `tree-sitter-langs-create-bundle's output to be unordered.
-         (_ (accept-process-output proc)))
+	 (_ (message "[treesit-langs] Running %s in %s" command default-directory))
+	 (base `(:name ,program :command ,command))
+	 (output (if treesit-langs--out
+		     `(:buffer ,treesit-langs--out)
+		   `(:filter (lambda (proc string)
+			       (princ string)))))
+	 (proc (apply #'make-process (append base output)))
+	 (exit-code (progn
+		      (while (not (memq (process-status proc)
+					'(exit failed signal)))
+			(sleep-for 0.1))
+		      (process-exit-status proc)))
+	 ;; Flush buffered output. Not doing this caused
+	 ;; `tree-sitter-langs-git-dir' to be set incorrectly, and
+	 ;; `tree-sitter-langs-create-bundle's output to be unordered.
+	 (_ (accept-process-output proc)))
     (unless (= exit-code 0)
       (error "Error calling %s, exit code is %s" command exit-code))))
 
@@ -237,28 +237,28 @@ If BUFFER is nil, `princ' is used to forward its stdout+stderr."
 If VERSION and OS are not spcified, use the defaults of
 `treesit-langs-bundle-version' and `treesit-langs--os'."
   (setq os (or os treesit-langs--os)
-        version (or version treesit-langs-bundle-version)
-        ext (or ext ""))
+	version (or version treesit-langs-bundle-version)
+	ext (or ext ""))
   (format "tree-sitter-grammars.%s.v%s.tar%s"
-          ;; FIX: Implement this correctly, refactoring 'OS' -> 'platform'.
-          (pcase os
-            ("windows" "x86_64-pc-windows-msvc")
-            ("linux"   (if (string-prefix-p "aarch64" system-configuration)
-                           "aarch64-unknown-linux-gnu"
-                         "x86_64-unknown-linux-gnu"))
-            ("freebsd" "x86_64-unknown-freebsd")
-            ("macos"   (if (string-prefix-p "aarch64" system-configuration)
-                           "aarch64-apple-darwin"
-                         "x86_64-apple-darwin")))
-          version ext))
+	  ;; FIX: Implement this correctly, refactoring 'OS' -> 'platform'.
+	  (pcase os
+	    ("windows" "x86_64-pc-windows-msvc")
+	    ("linux"   (if (string-prefix-p "aarch64" system-configuration)
+			   "aarch64-unknown-linux-gnu"
+			 "x86_64-unknown-linux-gnu"))
+	    ("freebsd" "x86_64-unknown-freebsd")
+	    ("macos"   (if (string-prefix-p "aarch64" system-configuration)
+			   "aarch64-apple-darwin"
+			 "x86_64-apple-darwin")))
+	  version ext))
 
 (defun treesit-langs--bundle-url (&optional version os)
   "Return the URL to download the grammar bundle.
 If VERSION and OS are not specified, use the defaults of
 `treesit-langs-bundle-version' and `treesit-langs--os'."
   (format "https://github.com/emacs-tree-sitter/tree-sitter-langs/releases/download/%s/%s"
-          version
-          (treesit-langs--bundle-file ".gz" version os)))
+	  version
+	  (treesit-langs--bundle-file ".gz" version os)))
 
 (defun treesit-langs--bin-dir ()
   "Return the directory to stored grammar binaries."
@@ -276,45 +276,45 @@ unless SKIP-IF-INSTALLED is non-nil.
 The download bundle file is deleted after installation, unless KEEP-BUNDLE is
 non-nil."
   (interactive (list
-                nil
-                (read-string "Bundle version: " treesit-langs-bundle-version)
-                treesit-langs--os
-                nil))
+		nil
+		(read-string "Bundle version: " treesit-langs-bundle-version)
+		treesit-langs--os
+		nil))
   (let* ((bin-dir (treesit-langs--bin-dir))
-         (_ (unless (unless (file-directory-p bin-dir)
-                      (make-directory bin-dir))))
-         (version (or version treesit-langs-bundle-version))
-         (default-directory bin-dir)
-         (bundle-file (treesit-langs--bundle-file ".gz" version os))
-         (current-version (when (file-exists-p
-                                 treesit-langs--bundle-version-file)
-                            (with-temp-buffer
-                              (let ((coding-system-for-read 'utf-8))
-                                (insert-file-contents
-                                 treesit-langs--bundle-version-file)
-                                (string-trim (buffer-string)))))))
+	 (_ (unless (unless (file-directory-p bin-dir)
+		      (make-directory bin-dir))))
+	 (version (or version treesit-langs-bundle-version))
+	 (default-directory bin-dir)
+	 (bundle-file (treesit-langs--bundle-file ".gz" version os))
+	 (current-version (when (file-exists-p
+				 treesit-langs--bundle-version-file)
+			    (with-temp-buffer
+			      (let ((coding-system-for-read 'utf-8))
+				(insert-file-contents
+				 treesit-langs--bundle-version-file)
+				(string-trim (buffer-string)))))))
     (cl-block nil
       (if (string= version current-version)
-          (if skip-if-installed
-              (progn (message "treesit-langs: Grammar bundle v%s was already installed; skipped" version)
-                     (cl-return))
-            (message "treesit-langs: Grammar bundle v%s was already installed; reinstalling" version))
-        (message "treesit-langs: Installing grammar bundle v%s (was v%s)" version current-version))
+	  (if skip-if-installed
+	      (progn (message "treesit-langs: Grammar bundle v%s was already installed; skipped" version)
+		     (cl-return))
+	    (message "treesit-langs: Grammar bundle v%s was already installed; reinstalling" version))
+	(message "treesit-langs: Installing grammar bundle v%s (was v%s)" version current-version))
       ;; FIX: Handle HTTP errors properly.
       (url-copy-file (treesit-langs--bundle-url version os)
-                     bundle-file 'ok-if-already-exists)
+		     bundle-file 'ok-if-already-exists)
       (treesit-langs--call "tar" "-xvzf" bundle-file)
       ;; FIX: This should be a metadata file in the bundle itself.
       (with-temp-file treesit-langs--bundle-version-file
-        (let ((coding-system-for-write 'utf-8))
-          (insert version)))
+	(let ((coding-system-for-write 'utf-8))
+	  (insert version)))
       (unless keep-bundle
-        (delete-file bundle-file 'trash))
+	(delete-file bundle-file 'trash))
       (when (and (called-interactively-p 'any)
-                 (y-or-n-p (format "Show installed grammars in %s? " bin-dir)))
-        (with-current-buffer (find-file bin-dir)
-          (when (bound-and-true-p dired-omit-mode)
-            (dired-omit-mode -1))))
+		 (y-or-n-p (format "Show installed grammars in %s? " bin-dir)))
+	(with-current-buffer (find-file bin-dir)
+	  (when (bound-and-true-p dired-omit-mode)
+	    (dired-omit-mode -1))))
       (treesit-langs--rename))))
 
 ;;
@@ -323,24 +323,24 @@ non-nil."
 (defun treesit-langs--grammar-files (bin)
   "Return grammar files from BIN."
   (cl-remove-if-not (lambda (file)
-                      (cl-some (lambda (suffix)
-                                 (string-suffix-p suffix file))
-                               treesit-langs--suffixes))
-                    (directory-files bin t)))
+		      (cl-some (lambda (suffix)
+				 (string-suffix-p suffix file))
+			       treesit-langs--suffixes))
+		    (directory-files bin t)))
 
 (defun treesit-langs--rename ()
   "Rename installed grammars to `treesit.el' compatible cnaming convention."
   (interactive)
   (when-let* ((bin (treesit-langs--bin-dir))
-              ((file-directory-p bin)))
+	      ((file-directory-p bin)))
     (dolist (filename (treesit-langs--grammar-files bin))
       (let* ((dir   (file-name-directory filename))
-             (file  (file-name-nondirectory filename))
-             (lang  (file-name-sans-extension file))
-             (soext (car dynamic-library-suffixes))
-             (new-file (expand-file-name (concat "libtree-sitter-" lang soext)
-                                         dir)))
-        (rename-file filename new-file)))))
+	     (file  (file-name-nondirectory filename))
+	     (lang  (file-name-sans-extension file))
+	     (soext (car dynamic-library-suffixes))
+	     (new-file (expand-file-name (concat "libtree-sitter-" lang soext)
+					 dir)))
+	(rename-file filename new-file)))))
 
 ;;
 ;;; Set up
@@ -348,8 +348,8 @@ non-nil."
 (defun treesit-langs-major-mode-setup ()
   "Activate tree-sitter to power major-mode features."
   (when-let* ((lang (alist-get major-mode treesit-langs-major-mode-alist))
-              ((treesit-language-available-p lang))
-              ((ignore-errors (treesit-parser-create lang))))
+	      ((treesit-language-available-p lang))
+	      ((ignore-errors (treesit-parser-create lang))))
     (treesit-major-mode-setup)
     (run-hooks 'treesit-langs-major-mode-setup-hook)))
 

@@ -2,7 +2,7 @@
 exec_always autotiling
 
 ### Start emacs daemon
-exec emacs --daemon
+# exec emacs --daemon
 
 ### Input
 input * xkb_layout "dk"
@@ -22,12 +22,12 @@ set $title_bg_unfocused #666666
 set $title_outline_active #264f78
 set $title_outline_unfocused #141414
 
-# Set Colors:           Border                   Background            Text          Indicator                Child Border
-client.background       $background
-client.focused          $title_outline_unfocused $title_outline_active $text_color   $title_outline_unfocused $title_outline_unfocused
-client.focused_inactive $title_outline_unfocused $background           $text_color   $title_outline_unfocused $title_outline_unfocused
-client.unfocused        $title_outline_unfocused $background           $text_color   $title_outline_unfocused $title_outline_unfocused
-client.urgent           $title_outline_unfocused $color_urgent         $text_color   $title_outline_unfocused $title_outline_unfocused
+# Set Colors:            Border                    Background             Text         Indicator                 Child Border
+client.background        $background
+client.focused           $title_outline_unfocused  $title_outline_active  $text_color  $title_outline_unfocused  $title_outline_unfocused
+client.focused_inactive  $title_outline_unfocused  $background            $text_color  $title_outline_unfocused  $title_outline_unfocused
+client.unfocused         $title_outline_unfocused  $background            $text_color  $title_outline_unfocused  $title_outline_unfocused
+client.urgent            $title_outline_unfocused  $color_urgent          $text_color  $title_outline_unfocused  $title_outline_unfocused
 
 # Add gaps in between all application windows
 gaps inner 2
@@ -93,7 +93,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
 ### Key bindings
 
 ### Basics:
-
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -145,7 +144,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 ### Moving around:
-
     # Move your focus around
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -159,7 +157,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
     bindsym $mod+Shift+Right move right
 
 ### Workspaces:
-
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -188,7 +185,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
     bindsym $mod+ctrl+shift+q [workspace=__focused__] kill
 
 ### Layout stuff:
-
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -213,7 +209,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
     bindsym $mod+a focus parent
 
 ### Scratchpad:
-
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -225,7 +220,6 @@ for_window [app_id="google-chrome"] inhibit_idle fullscreen
     bindsym $mod+minus scratchpad show
 
 ### Resizing containers:
-
 mode "resize" {
 
     # Resize the window
@@ -242,7 +236,6 @@ bindsym $mod+r mode "resize"
 
 
 ### Status Bar:
-
 # Read `man 5 sway-bar` for more information about this section.
 bar {
    swaybar_command waybar

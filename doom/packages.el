@@ -7,10 +7,13 @@
 ;; tablist package
 (package! tablist)
 
-;; Drag-stuff package to move lines and words
+;; drag-stuff package to move lines and words
 (package! drag-stuff)
 
-;; Execution path
+;; futhark mode
+(package! futhark-mode)
+
+;; execution path
 (package! exec-path-from-shell)
 (package-initialize)
 (use-package exec-path-from-shell
@@ -25,7 +28,7 @@
 (package! copilot-chat
   :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
 
-;; Nix-mode
+;; nix-mode
 (package! nix-mode
   :recipe (:host github :repo "NixOS/nix-mode" :files ("*.el")))
 
@@ -34,6 +37,10 @@
 
 ;; install nerd-icons
 (package! nerd-icons)
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+
 (package! nerd-icons-dired)
 (use-package nerd-icons-dired
   :hook
