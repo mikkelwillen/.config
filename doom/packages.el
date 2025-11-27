@@ -15,36 +15,15 @@
 
 ;; execution path
 (package! exec-path-from-shell)
-(package-initialize)
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
-
-;; copilot package
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-
-;; copilot-chat
-(package! copilot-chat
-  :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
-
-;; nix-mode
-(package! nix-mode
-  :recipe (:host github :repo "NixOS/nix-mode" :files ("*.el")))
 
 ;; install eyebrowse
 (package! eyebrowse)
 
 ;; install nerd-icons
 (package! nerd-icons)
-(use-package nerd-icons
-  :custom
-  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
+;; install nerd-icons-dired
 (package! nerd-icons-dired)
-(use-package nerd-icons-dired
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
 
 ;; install fish-mode
 (package! fish-mode)
@@ -52,32 +31,41 @@
 ;; fsautocomplete
 (package! fsharp-mode)
 
-;; Fsharp treesitter mode
-(package! fsharp-ts-mode
-  :recipe (:host github :repo "KaranAhlawat/fsharp-ts-mode" :files ("*.el")))
-
-;; install sml-ts-mode and load it
-(package! sml-ts-mode)
-(use-package sml-ts-mode
-  :ensure t
-  :mode "\\.sml\\'" "\\.mlb\\'" "\\.sig\\'")
-
 ;; install c lsp
 (package! ccls)
 
 ;; install python lsp
 (package! lsp-pyright)
 
-;; install elsa lsp
-;; (package! elsa)
-
 ;; install golden-ratio
 (package! golden-ratio)
 
-;; install and configure tree-sitter
-(require 'treesit-langs)
-(treesit-langs-major-mode-setup)
+;; install idle-highlight-mode
+(package! idle-highlight-mode)
 
-;; Loads fasto-mode from /./
-(add-load-path! ".")
-(require 'fasto-mode)
+
+;;; From github repos
+
+;; copilot package
+(package! copilot
+  :recipe (:host github
+	   :repo "copilot-emacs/copilot.el"
+	   :files ("*.el")))
+
+;; copilot-chat
+(package! copilot-chat
+  :recipe (:host github
+	   :repo "chep/copilot-chat.el"
+	   :files ("*.el")))
+
+;; nix-mode
+(package! nix-mode
+  :recipe (:host github
+	   :repo "NixOS/nix-mode"
+	   :files ("*.el")))
+
+;; Fsharp treesitter mode
+(package! fsharp-ts-mode
+  :recipe (:host github
+	   :repo "KaranAhlawat/fsharp-ts-mode"
+	   :files ("*.el")))

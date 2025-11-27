@@ -41,6 +41,7 @@
     // Modules
     // -------------------------------------------------------------------------
 
+    // TODO: Change to use two modules
     "battery": {
         "interval": 10,
         "states": {
@@ -48,33 +49,42 @@
             "critical": 15
         },
         // Connected to AC
-        "format": "󱐋 {icon}   {capacity}%", // Icon: bolt
-        // Not connected to AC
-        "format-discharging": "{icon}   {capacity}%",
+        "format": "{icon}󱐋 {capacity}%", // Icon: bolt
+        "format-charging": "{icon}󱐋 {capacity}%",
+        "format-discharging": "{icon} {capacity}%",
         "format-icons": [
-            "", // Icon: battery-full
-            "", // Icon: battery-three-quarters
-            "", // Icon: battery-half
-            "", // Icon: battery-quarter
-            ""  // Icon: battery-empty
+            "󰂎",
+            "󰁻",
+            "󰁽",
+            "󰁿",
+            "󰂁",
+            "󰁹"
+        ],
+        "format-icons-charging": [
+            "󰢟",
+            "󰂆",
+            "󰂈",
+            "󰂉",
+            "󰂊",
+            "󰂅"
         ],
         "tooltip": true
     },
 
     "clock#time": {
         "interval": 1,
-        "format": "   󰥔  {:%H:%M:%S}  ",
+        "format": "  󰥔  {:%H:%M:%S}  ",
         "tooltip": false
     },
 
     "clock#date": {
       "interval": 10,
-      "format": "  {:%e %b %Y}", // Icon: calendar-alt
+      "format": " {:%e %b %Y}", // Icon: calendar-alt
       "tooltip-format": "{:%e %B %Y}"
     },
 
     "cpu": {
-        "interval": 5,
+        "interval": 2,
         "format": "  {usage}% ({load})", // Icon: microchip
         "states": {
           "warning": 70,
@@ -93,8 +103,8 @@
     },
 
     "memory": {
-        "interval": 5,
-        "format": "   {}%", // Icon: memory
+        "interval": 2,
+        "format": "  {}%", // Icon: memory
         "states": {
             "warning": 70,
             "critical": 90
@@ -102,8 +112,8 @@
     },
 
     "network": {
-        "interval": 5,
-        "format-wifi": "   {essid} ({signalStrength}%)", // Icon: wifi
+        "interval": 2,
+        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
         "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}"

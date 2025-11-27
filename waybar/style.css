@@ -50,9 +50,9 @@
 #waybar {
     background: #141414;
     color: white;
-    font-family: MesloLGSDZ Font Mono;
+    font-family: MesloLGMDZ Nerd Font;
     /* Cantarell, Noto Sans, sans-serif; */
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /* Each module */

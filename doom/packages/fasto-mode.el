@@ -86,12 +86,12 @@
 
       ;; Function parameters.
       (,(concat "\\(?:" "(" "\\|" "," "\\)" ws
-                fasto-type ws1 "\\(" fasto-var "\\)")
+		fasto-type ws1 "\\(" fasto-var "\\)")
        . '(1 font-lock-variable-name-face))
 
       ;; Let declarations.
       (,(concat "let" ws1
-                "\\(" fasto-var "\\)")
+		"\\(" fasto-var "\\)")
        . '(1 font-lock-variable-name-face))
 
       ;; Keywords.
@@ -143,17 +143,17 @@
 (defun fasto-indent-line ()
   "Indent current line as Fasto code."
   (let ((savep (> (current-column) (current-indentation)))
-        (indent (or (fasto-calculate-indentation)
-                    (current-indentation))))
+	(indent (or (fasto-calculate-indentation)
+		    (current-indentation))))
     (if savep ; The cursor is beyond leading whitespace.
-        (save-excursion (indent-line-to indent))
+	(save-excursion (indent-line-to indent))
       (indent-line-to indent))))
 
 (defun fasto-calculate-indentation ()
   "Calculate the indentation for the current line.
 In general, prefer as little indentation as possible."
   (let ((parse-sexp-lookup-properties t)
-        (parse-sexp-ignore-comments t))
+	(parse-sexp-ignore-comments t))
 
     (save-excursion
       (fasto-beginning-of-line-text)
@@ -164,107 +164,107 @@ In general, prefer as little indentation as possible."
 
        ;; Align comment to next non-comment line.
        (and (looking-at comment-start)
-            (forward-comment (count-lines (point-min) (point)))
-            (current-column))
+	    (forward-comment (count-lines (point-min) (point)))
+	    (current-column))
 
        ;; Align global function definitions to column 0.
        (and (fasto-looking-at-word "fun")
-            0)
+	    0)
 
        ;; Align closing parentheses and commas to the matching opening
        ;; parenthesis.
        (save-excursion
-         (and (looking-at (regexp-opt '(")" "]" ",")))
-              (ignore-errors
-                (backward-up-list 1)
-                (current-column))))
+	 (and (looking-at (regexp-opt '(")" "]" ",")))
+	      (ignore-errors
+		(backward-up-list 1)
+		(current-column))))
 
        ;; Align "in" or "let" to the closest previous "let".
        (save-excursion
-         (and (or (fasto-looking-at-word "in")
-                  (fasto-looking-at-word "let"))
-              (let ((m
-                     (save-excursion
-                       (fasto-keyword-backward "let"))
-                     ))
-                (and (not (eq nil m))
-                     (goto-char m)
-                     (current-column)))))
+	 (and (or (fasto-looking-at-word "in")
+		  (fasto-looking-at-word "let"))
+	      (let ((m
+		     (save-excursion
+		       (fasto-keyword-backward "let"))
+		     ))
+		(and (not (eq nil m))
+		     (goto-char m)
+		     (current-column)))))
 
        ;; Otherwise, if the previous code line ends with "in" align to
        ;; the matching "let" column.
        (save-excursion
-         (and (fasto-backward-part)
-              (looking-at "\\<in[[:space:]]*$")
-              (let ((m
-                     (save-excursion
-                       (fasto-keyword-backward "let"))
-                      ))
-                (and (not (eq nil m))
-                     (goto-char m)
-                     (current-column)))))
+	 (and (fasto-backward-part)
+	      (looking-at "\\<in[[:space:]]*$")
+	      (let ((m
+		     (save-excursion
+		       (fasto-keyword-backward "let"))
+		     ))
+		(and (not (eq nil m))
+		     (goto-char m)
+		     (current-column)))))
 
        ;; If the previous code line ends with "=", align to the matching "fun"
        ;; or "let" column plus one indent level.
        (save-excursion
-         (and (fasto-backward-part)
-              (looking-at "=[[:space:]]*$")
-              (let ((m
-                     (fasto-max
-                      (save-excursion
-                        (fasto-keyword-backward "fun"))
-                      (save-excursion
-                        (fasto-keyword-backward "let")))
-                     ))
-                (and (not (eq nil m))
-                     (goto-char m)
-                     (+ (current-column) fasto-indent-level)))))
+	 (and (fasto-backward-part)
+	      (looking-at "=[[:space:]]*$")
+	      (let ((m
+		     (fasto-max
+		      (save-excursion
+			(fasto-keyword-backward "fun"))
+		      (save-excursion
+			(fasto-keyword-backward "let")))
+		     ))
+		(and (not (eq nil m))
+		     (goto-char m)
+		     (+ (current-column) fasto-indent-level)))))
 
        ;; Align "then" to nearest "else if" or "if".
        (save-excursion
-         (and (fasto-looking-at-word "then")
-              (fasto-keyword-backward "if")
-              (or
-               (let ((curline (line-number-at-pos)))
-                 (save-excursion
-                   (and (fasto-backward-part)
-                        (= (line-number-at-pos) curline)
-                        (fasto-looking-at-word "else")
-                        (current-column))))
-               (current-column))))
+	 (and (fasto-looking-at-word "then")
+	      (fasto-keyword-backward "if")
+	      (or
+	       (let ((curline (line-number-at-pos)))
+		 (save-excursion
+		   (and (fasto-backward-part)
+			(= (line-number-at-pos) curline)
+			(fasto-looking-at-word "else")
+			(current-column))))
+	       (current-column))))
 
        ;; Align "else" to nearest "then" or "else if" or "if".
        (save-excursion
-         (and (fasto-looking-at-word "else")
-              (let ((m
-                     (fasto-max
-                      (save-excursion
-                        (and
-                         (fasto-keyword-backward "then")
-                         (fasto-is-beginning-of-line-text)
-                         (point)))
-                      (save-excursion
-                        (let ((pos0 (fasto-keyword-backward "if")))
-                          (or
-                           (let ((curline (line-number-at-pos)))
-                             (and (fasto-backward-part)
-                                  (= (line-number-at-pos) curline)
-                                  (fasto-looking-at-word "else")
-                                  (point)))
-                           pos0))))))
-                (and (not (eq nil m))
-                     (goto-char m)
-                     (current-column)))))
+	 (and (fasto-looking-at-word "else")
+	      (let ((m
+		     (fasto-max
+		      (save-excursion
+			(and
+			 (fasto-keyword-backward "then")
+			 (fasto-is-beginning-of-line-text)
+			 (point)))
+		      (save-excursion
+			(let ((pos0 (fasto-keyword-backward "if")))
+			  (or
+			   (let ((curline (line-number-at-pos)))
+			     (and (fasto-backward-part)
+				  (= (line-number-at-pos) curline)
+				  (fasto-looking-at-word "else")
+				  (point)))
+			   pos0))))))
+		(and (not (eq nil m))
+		     (goto-char m)
+		     (current-column)))))
 
        ;; Align general content inside parentheses to the first general
        ;; non-space content.
        (save-excursion
-         (when (ignore-errors (backward-up-list 1) t)
-              (forward-char 1)
-              (fasto-goto-first-text)
-              (and
-               (not (fasto-is-looking-at-keyword))
-               (current-column))))
+	 (when (ignore-errors (backward-up-list 1) t)
+	   (forward-char 1)
+	   (fasto-goto-first-text)
+	   (and
+	    (not (fasto-is-looking-at-keyword))
+	    (current-column))))
 
        ;; Otherwise, keep the user-specified indentation level.
        ))))
@@ -274,8 +274,8 @@ In general, prefer as little indentation as possible."
   (or (and (eq nil a) b)
       (and (eq nil b) a)
       (and (not (eq nil a))
-           (not (eq nil b))
-           (max a b))))
+	   (not (eq nil b))
+	   (max a b))))
 
 (defun fasto-beginning-of-line-text ()
   "Move to the beginning of the non-whitespace text on this line."
@@ -297,7 +297,7 @@ In general, prefer as little indentation as possible."
 
 (defun fasto-is-looking-at-keyword ()
   "Check if we are currently looking at a keyword."
-  (some 'fasto-looking-at-word fasto-keywords))
+  (cl-some 'fasto-looking-at-word fasto-keywords))
 
 (defun fasto-backward-part ()
   "Try to jump back one sexp.
@@ -313,37 +313,37 @@ The net effect seems to be that it works ok."
   "Go to a keyword WORD before the current position.
 Set mark and return t if found; return nil otherwise."
   (let (;; Only look in the current paren-delimited code if present.
-        (startp (point))
-        (topp (or (save-excursion (ignore-errors
-                                    (backward-up-list 1)
-                                    (point)))
-                  (max
-                   (or (save-excursion (fasto-keyword-backward-raw "fun"))
-                       0)
-                   (or (save-excursion (fasto-keyword-backward-raw "entry"))
-                       0))))
-        (result nil))
+	(startp (point))
+	(topp (or (save-excursion (ignore-errors
+				    (backward-up-list 1)
+				    (point)))
+		  (max
+		   (or (save-excursion (fasto-keyword-backward-raw "fun"))
+		       0)
+		   (or (save-excursion (fasto-keyword-backward-raw "entry"))
+		       0))))
+	(result nil))
 
     (while (and (not result)
-                (fasto-backward-part)
-                (>= (point) topp))
+		(fasto-backward-part)
+		(>= (point) topp))
 
       (if (fasto-looking-at-word word)
-          (setq result (point))))
+	  (setq result (point))))
 
     (or result
-        (progn
-          (goto-char startp)
-          nil))))
+	(progn
+	  (goto-char startp)
+	  nil))))
 
 (defun fasto-keyword-backward-raw (word)
   "Go to a keyword WORD before the current position.
 Ignore any program structure."
   (let ((pstart (point)))
     (while (and (fasto-backward-part)
-                (not (fasto-looking-at-word word))))
+		(not (fasto-looking-at-word word))))
     (and (fasto-looking-at-word word)
-         (point))))
+	 (point))))
 
 
 ;;; Actual mode declaration

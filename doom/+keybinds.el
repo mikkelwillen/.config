@@ -16,7 +16,7 @@
 	(split-window-below)
 	(other-window 1)
 	(evil-window-move-very-bottom)
-	(evil-window-set-height (round (* 0.6 (window-total-height))))
+	(evil-window-set-height (round (* 0.3 (window-total-height))))
 	(shell))))
 
 

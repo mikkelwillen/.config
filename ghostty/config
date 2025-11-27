@@ -1,7 +1,7 @@
 ### Visuals
 font-family = FiraMono Nerd Font Mono
 font-size = 18 
-theme = NvimDark
+theme = Nvim Dark
 cursor-style = block
 
 mouse-scroll-multiplier = 2

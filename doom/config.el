@@ -100,14 +100,6 @@
 	      (when (eq evil-state 'visual)
 		(evil-mark-and-excursion--restore)))))
 
-;; Enable flycheck
-;; a package to perform on-the-fly syntax checking
-(use-package flycheck
-  :ensure t
-  :defer t
-  :diminish
-  :init (global-flycheck-mode))
-
 ;; Enable hl-todo
 ;; a package to highlight TODO, FIXME, etc. in comments and strings
 (use-package hl-todo
@@ -128,14 +120,45 @@
   (add-hook 'after-make-frame-functions
 	    (lambda (frame)
 	      (with-selected-frame frame
-	  ;; Create and switch to a new workspace for this frame
-	  (persp-switch (generate-new-buffer-name "#1")))))
+		;; Create and switch to a new workspace for this frame
+		(persp-switch (generate-new-buffer-name "#1")))))
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
 ;; Set up ccls for C/C++ development
 (after! ccls
   (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
   (set-lsp-priority! 'ccls 1))
+
+;; Enable idle-highlight-mode to highlight all occurrences of the word under cursor
+(use-package idle-highlight-mode
+  :hook 
+  (prog-mode . idle-highlight-mode)
+
+  :config
+  (setq idle-highlight-idle-time 0.1))
+(add-hook 'after-change-major-mode-hook
+  (lambda ()
+    (when (derived-mode-p 'c-mode)
+      (setq-local idle-highlight-exceptions '("unsigned" "signed" "long" "int" "shot" "char")))
+    (when (derived-mode-p 'python-mode)
+      (setq-local idle-highlight-exceptions '("list" "tuple" "int" "float" "str" "bool")))
+    (when (derived-mode-p 'haskell-mode)
+	  (setq-local idle-highlight-exceptions '("Int" "Float" "String" "Bool" "Char" "Maybe" "Either" "IO" ":" "::" "->" "<-" "=" "$" "<$>" "<*>" "<*" "*>" ">>=" ">>" "=<<")))))
+
+;; Load executable path from shell
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
+;; Enable nerd-icons
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+
+;; Enable nerd-icons in dired mode
+(use-package nerd-icons-dired
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
 
 ;; Load additional configuration files
 (load! "+keybinds")

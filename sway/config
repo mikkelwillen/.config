@@ -1,5 +1,5 @@
 ### Autotiling
-exec_always autotiling
+exec_always autotiling-rs
 
 ### Start emacs daemon
 # exec emacs --daemon
