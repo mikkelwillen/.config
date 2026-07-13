@@ -10,14 +10,6 @@
 			    (require 'lsp-pyright)
 			    (lsp))))
 
-;; ;; LSP for Nix
-;; (use-package lsp-nix
-;;   :ensure lsp-mode
-;;   :after (lsp-mode)
-;;   :demand t
-;;   :custom
-;;   (lsp-nix-nil-formatter ["nixfmt"]))
-
 (add-to-list 'lsp-language-id-configuration '(sml-ts-mode . "sml"))
 (add-to-list 'lsp-language-id-configuration '(futhark-mode . "futhark"))
 (add-to-list 'lsp-language-id-configuration '(haskell-ts-mode . "haskell"))

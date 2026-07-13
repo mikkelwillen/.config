@@ -43,6 +43,9 @@
 ;; install idle-highlight-mode
 (package! idle-highlight-mode)
 
+;; install doc-toc
+;; (package! doc-toc) ;; Missing dependencies.
+
 
 ;;; From github repos
 

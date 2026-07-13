@@ -10,6 +10,12 @@ input * xkb_layout "dk"
 ### Scroll direction
 input * natural_scroll enabled 
 
+### key repeat delay
+input * {
+    repeat_delay 200
+    repeat_rate 25
+}
+
 ### Scale
 font pango:FiraCode Nerd Font 15
 

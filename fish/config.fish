@@ -4,7 +4,10 @@ set TERM "ghostty"
 set EDITOR "emacsclient -t -a ''"
 set VISUAL "emacsclient -c -a emacs"
 
+set -g fish_key_bindings fish_hybrid_key_bindings
+
 bind \c\b backward-kill-word
+
 if status is-interactive
 	# Commands to run in interactive sessions can go here
 end

@@ -126,6 +126,7 @@
 
 ;; Set up ccls for C/C++ development
 (after! ccls
+  (setq ccls-enable-skipped-ranges nil)
   (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
   (set-lsp-priority! 'ccls 1))
 

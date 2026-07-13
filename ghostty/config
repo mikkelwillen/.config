@@ -2,7 +2,7 @@
 font-family = FiraMono Nerd Font Mono
 font-size = 18 
 theme = Nvim Dark
-cursor-style = block
+cursor-style = bar
 
 mouse-scroll-multiplier = 2
 window-decoration = false
@@ -31,8 +31,47 @@ keybind = ctrl+right=goto_split:right
 keybind = ctrl+left=goto_split:left
 
 # Search, for whenever that is added
-# keybind = ctrl+s=search
+keybind = ctrl+s=start_search
 
 # automatically copy to clipboard, when marking text with mouse
 copy-on-select = clipboard
 keybind = ctrl+v=paste_from_clipboard
+
+# Vim-mode keybindings
+
+## Entry point
+keybind = alt+escape=activate_key_table:vim
+
+## Key table definition
+keybind = vim/
+
+## Line movement
+keybind = vim/j=scroll_page_lines:1
+keybind = vim/k=scroll_page_lines:-1
+
+## Page movement
+keybind = vim/ctrl+d=scroll_page_down
+keybind = vim/ctrl+u=scroll_page_up
+keybind = vim/ctrl+f=scroll_page_down
+keybind = vim/ctrl+b=scroll_page_up
+keybind = vim/shift+j=scroll_page_down
+keybind = vim/shift+k=scroll_page_up
+
+## Jump to top/bottom
+keybind = vim/g>g=scroll_to_top
+keybind = vim/shift+g=scroll_to_bottom
+
+## Search
+keybind = vim/slash=start_search
+keybind = vim/ctrl+s=start_search
+keybind = vim/n=navigate_search:next
+
+## Exit
+keybind = vim/i=deactivate_key_table
+keybind = vim/o=deactivate_key_table
+
+keybind = vim/escape=text:\x1b
+keybind = vim/q=text:\x1b
+
+## Catch unbound keys
+keybind = vim/catch_all=ignore
